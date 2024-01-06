@@ -1,3 +1,4 @@
+import datetime
 from pydantic import BaseModel
 from enum import Enum
 from config import conf
@@ -19,4 +20,10 @@ class Context(BaseModel):
 
     def __init__(self):
         super().__init__()
-        self.system_prompt = conf().get("role_desc")
+        ios_datetime = datetime.datetime.now().isoformat()
+        print(ios_datetime)
+        self.system_prompt = f"""
+{conf().get("role_desc")}
+
+<now>{ios_datetime}</now>
+"""
